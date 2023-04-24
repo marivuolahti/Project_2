@@ -18,7 +18,7 @@ var pw  = process.env.MONGO_PW
 //creating connection script to mongodb
 const uri =  `mongodb+srv://${process.env.MONGO_USERID}:${process.env.MONGO_PW}@cluster0.gm1qmfb.mongodb.net/?retryWrites=true&w=majority`; // my mongodb link to here when I know where to find it
 
-//make routes
+// routes
 app.get("/", function (_req, res) {
    //main page
     res.sendFile(path.join(__dirname + "/index.html"));
