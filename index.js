@@ -1,5 +1,9 @@
 var express = require("express");
+var cors = require('cors')
 var app = express();
+app.use(cors())
+
+
 //for the templates
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -68,11 +72,24 @@ app.get("/api/movies", function(req, res) {
         res.send("Add movie: " + req.body.title + " (" + req.body.year + ")");
     });
 //PUT
-    //modify information of movie by id number, see how to read id
-    app.put("/api/modify/:id", function(req, res){
-        res.send("Modify movie by " + req.params.id);
-    });
-
+   
+    app.put("/api/modify/:id", function (req, res) {
+        try {
+          
+          const modifiedMovie = {
+            id: req.params.id,
+            title: "The Great Train Robbery",
+            director: "Edwin S. Porter",
+            year: "1903"
+          };
+      
+         
+          res.json(modifiedMovie);
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ error: "Failed to modify the movie. " + error.message });
+        }
+      });
 //DELETE
     app.delete("/api/delete/:id", function(req, res) {
         res.send("Remove the movie by " + req.params.id);
